@@ -4,6 +4,7 @@ const dgram = require('dgram');
 
 function BBDMX(device_id, options) {
 	const self = this;
+	self.changed = true;
 	self.options = options || {};
 	self.universe = new Buffer(512);
 	self.universe.fill(0);
@@ -15,14 +16,17 @@ function BBDMX(device_id, options) {
 }
 
 BBDMX.prototype.send_universe = function() {
-	let messageBuffer = new Buffer(this.universe.length.toString());
+	if (this.changed === true) {
+		let messageBuffer = new Buffer(this.universe.length.toString());
 
-	for (let i = 0; i < this.universe.length; i++) {
-		const channel = new Buffer(' ' + this.universe[i]);
-		const length = channel.length + messageBuffer.length;
-		messageBuffer = Buffer.concat([messageBuffer, channel], length);
+		for (let i = 0; i < this.universe.length; i++) {
+			const channel = new Buffer(' ' + this.universe[i]);
+			const length = channel.length + messageBuffer.length;
+			messageBuffer = Buffer.concat([messageBuffer, channel], length);
+		}
+		this.dev.send(messageBuffer, 0, messageBuffer.length, this.port, this.host);
+		this.changed = false;
 	}
-	this.dev.send(messageBuffer, 0, messageBuffer.length, this.port, this.host);
 };
 
 BBDMX.prototype.start = function() {
@@ -42,6 +46,7 @@ BBDMX.prototype.update = function(u) {
 	for (let c in u) {
 		this.universe[c] = u[c];
 	}
+	this.changed = true;
 };
 
 BBDMX.prototype.updateAll = function(v) {
