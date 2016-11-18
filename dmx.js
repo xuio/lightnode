@@ -15,6 +15,7 @@ function DMX(options) {
 	this.registerDriver('enttec-open-usb-dmx', require('./drivers/enttec-open-usb-dmx'))
 	this.registerDriver('artnet',              require('./drivers/artnet'))
 	this.registerDriver('bbdmx',               require('./drivers/bbdmx'))
+	this.registerDriver('rcswitch',            require('./drivers/RCSwitch'))
 }
 
 util.inherits(DMX, EventEmitter)
