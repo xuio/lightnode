@@ -104,7 +104,7 @@
 				html += "</div>";
 				$(html).hide().appendTo('#sliders').fadeIn();
 			}
-			$("input").live("change", function(e) {
+			$("input").live("input change", function(e) {
 				var i = e.target.id.split('_');
 				var u = {};
 				u[i[2]] = e.target.value;

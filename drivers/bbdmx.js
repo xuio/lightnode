@@ -17,15 +17,30 @@ function BBDMX(device_id, options) {
 
 BBDMX.prototype.send_universe = function() {
 	if (this.changed === true) {
+		/*
 		let messageBuffer = new Buffer(this.universe.length.toString());
 
-		for (let i = 0; i < this.universe.length; i++) {
+		console.log(`L: ${this.universe.length}`);
+		let index = 0;
+		for (let i = 0; i < (100); i++) {
+			index++;
 			const channel = new Buffer(' ' + this.universe[i]);
 			const length = channel.length + messageBuffer.length;
 			messageBuffer = Buffer.concat([messageBuffer, channel], length);
 		}
+		console.log(messageBuffer.toString());
 		this.dev.send(messageBuffer, 0, messageBuffer.length, this.port, this.host);
 		this.changed = false;
+		*/
+		const index = 100;
+		let messageStr = `${index} `;
+		for (let i = 0; i < index; i++) {
+			messageStr += `${this.universe[i]} `;
+		}
+        const message = new Buffer(messageStr);
+        console.log(message.toString());
+        this.dev.send(message, 0, message.length, this.port, this.host);
+        this.changed = false;
 	}
 };
 
