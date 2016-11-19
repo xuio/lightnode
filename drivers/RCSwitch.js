@@ -33,7 +33,6 @@ RCSwitch.prototype.send_universe = function() {
 			if (this.changes[i]) {
 				const state = (this.universe[i] > 127) ? '1' : '0';
 				const message = `${this.options.map[i][0]}:${this.options.map[i][1]}:${state};`;
-				console.log(message);
 				this.dev.write(new Buffer(message));
 				this.changes[i] = false;
 			}

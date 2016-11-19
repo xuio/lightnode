@@ -38,7 +38,6 @@ BBDMX.prototype.send_universe = function() {
 			messageStr += `${this.universe[i]} `;
 		}
         const message = new Buffer(messageStr);
-        console.log(message.toString());
         this.dev.send(message, 0, message.length, this.port, this.host);
         this.changed = false;
 	}
