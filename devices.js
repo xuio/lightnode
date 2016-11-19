@@ -37,6 +37,24 @@ module.exports = {
 			}
 		}
 	},
+	'el-cheapo-spot': {
+		channels: ['dimmer', 'r', 'g', 'b']
+	},
+	'eurolite-par-56': {
+		channels: ['r', 'g', 'b']
+	},
+	'wireless-socket': {
+		channels: ['state'],
+		ranges: {
+			'state': {
+				'type': 'option',
+				'options': [
+					{'value': 0,   'label': 'OFF'},
+					{'value': 255,  'label': 'ON'}
+				]
+			}
+		}
+	},
 	'stairville-led-par-56': {
 		channels: ['ctrl', 'red', 'green', 'blue', 'speed'],
 		ranges: {
