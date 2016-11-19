@@ -43,6 +43,9 @@ module.exports = {
 	'eurolite-par-56': {
 		channels: ['r', 'g', 'b']
 	},
+	'fogger': {
+		channels: ['fog']
+	},
 	'wireless-socket': {
 		channels: ['state'],
 		ranges: {
