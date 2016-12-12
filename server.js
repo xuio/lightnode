@@ -2,9 +2,9 @@
 'use strict';
 
 const http = require('http');
-const connect = require('connect');
 const express = require('express');
 const socketio = require('socket.io');
+
 const Controller = require('./controller');
 const A = Controller.Animation;
 
@@ -15,10 +15,10 @@ function controllerWeb() {
 	const server = http.createServer(app);
 	const io     = socketio.listen(server);
 
-	const dmx = new Controller();
+	const controller = new Controller();
 
 	for (const universe in config.universes) {
-		dmx.addUniverse(
+		controller.addUniverse(
 			universe,
 			config.universes[universe].output.driver,
 			config.universes[universe].output.device
@@ -41,48 +41,35 @@ function controllerWeb() {
 	});
 	io.set('log level', 1);
 
-	app.configure(() => {
-		app.use(connect.json());
-	});
-
 	app.get('/', (req, res) => {
-		res.sendfile(`${__dirname}/index.html`);
-	});
-
-	app.get('/config', (req, res) => {
-		const response = { devices: Controller.devices, universes: {} };
-		Object.keys(config.universes).forEach((key) => {
-			response.universes[key] = config.universes[key].devices;
-		});
-
-		res.json(response);
+		res.json('test');
 	});
 
 	app.get('/state/:universe', (req, res) => {
-		if (!(req.params.universe in dmx.universes)) {
+		if (!(req.params.universe in controller.universes)) {
 			res.status(404).json({ error: 'universe not found' });
 			return;
 		}
 
-		res.json({ state: dmx.universeToObject(req.params.universe) });
+		res.json({ state: controller.universeToObject(req.params.universe) });
 	});
 
 	app.post('/state/:universe', (req, res) => {
-		if (!(req.params.universe in dmx.universes)) {
+		if (!(req.params.universe in controller.universes)) {
 			res.status(404).json({ error: 'universe not found' });
 			return;
 		}
 
-		dmx.update(req.params.universe, req.body);
-		res.json({ state: dmx.universeToObject(req.params.universe) });
+		controller.update(req.params.universe, req.body);
+		res.json({ state: controller.universeToObject(req.params.universe) });
 	});
 
 	app.post('/animation/:universe', (req, res) => {
 		try {
-			const universe = dmx.universes[req.params.universe];
+			const universe = controller.universes[req.params.universe];
 
 			// preserve old states
-			const old = dmx.universeToObject(req.params.universe);
+			const old = controller.universeToObject(req.params.universe);
 
 			const animation = new A();
 			for (const step in req.body) {
@@ -106,15 +93,15 @@ function controllerWeb() {
 
 		socket.on('request_refresh', () => {
 			for (const universe in config.universes) {
-				socket.emit('update', universe, dmx.universeToObject(universe));
+				socket.emit('update', universe, controller.universeToObject(universe));
 			}
 		});
 
 		socket.on('update', (universe, update) => {
-			dmx.update(universe, update);
+			controller.update(universe, update);
 		});
 
-		dmx.on('update', (universe, update) => {
+		controller.on('update', (universe, update) => {
 			socket.emit('update', universe, update);
 		});
 	});
