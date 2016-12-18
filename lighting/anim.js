@@ -1,5 +1,3 @@
-'use strict';
-
 const ease = require('./easing.js').ease;
 const resolution = 25;
 

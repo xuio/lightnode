@@ -1,9 +1,10 @@
-'use strict';
-
 const util = require('util');
 const EventEmitter = require('events').EventEmitter;
 
-function controller(options) {
+// singleton storage
+let controllerInstance = null;
+
+function Controller(options) {
 	options = options || {};
 	this.universes = {};
 	this.drivers   = {};
@@ -18,30 +19,30 @@ function controller(options) {
 	this.registerDriver('rcswitch',				require('./drivers/RCSwitch'));
 }
 
-util.inherits(controller, EventEmitter);
+util.inherits(Controller, EventEmitter);
 
-controller.devices   = require('./devices');
-controller.Animation = require('./anim');
+Controller.devices   = require('./devices');
+Controller.Animation = require('./anim');
 
-controller.prototype.registerDriver = function(name, module) {
+Controller.prototype.registerDriver = function(name, module) {
 	this.drivers[name] = module;
 };
 
-controller.prototype.addUniverse = function(name, driver, device_id) {
+Controller.prototype.addUniverse = function(name, driver, device_id) {
 	return this.universes[name] = new this.drivers[driver](device_id);
 };
 
-controller.prototype.update = function(universe, channels) {
+Controller.prototype.update = function(universe, channels) {
 	this.universes[universe].update(channels);
 	this.emit('update', universe, channels);
 };
 
-controller.prototype.updateAll = function(universe, value) {
+Controller.prototype.updateAll = function(universe, value) {
 	this.universes[universe].updateAll(value);
 	this.emit('updateAll', universe, value);
 };
 
-controller.prototype.universeToObject = function(universe) {
+Controller.prototype.universeToObject = function(universe) {
 	universe = this.universes[universe];
 	const u = {};
 	for (let i = 0; i < universe.length; i++) {
@@ -50,4 +51,12 @@ controller.prototype.universeToObject = function(universe) {
 	return u;
 };
 
-module.exports = controller;
+module.exports = {
+	// 'controller': controller,
+	getInstance: (options) => {
+		if (controllerInstance === null) {
+			controllerInstance = new Controller(options);
+		}
+		return controllerInstance;
+	}
+};
