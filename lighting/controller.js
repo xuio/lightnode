@@ -1,5 +1,7 @@
-const util = require('util');
-const EventEmitter = require('events').EventEmitter;
+const requireFrom		= require('requirefrom')('/');
+
+const util				= require('util');
+const EventEmitter		= require('events').EventEmitter;
 
 // singleton storage
 let controllerInstance = null;
@@ -8,21 +10,21 @@ function Controller(options) {
 	options = options || {};
 	this.universes = {};
 	this.drivers   = {};
-	this.devices   = options.devices || require('./devices');
+	this.devices   = options.devices || requireFrom('lighting/devices');
 
-	this.registerDriver('null',					require('./drivers/null'));
-	this.registerDriver('dmx4all',				require('./drivers/dmx4all'));
-	this.registerDriver('enttec-usb-dmx-pro',	require('./drivers/enttec-usb-dmx-pro'));
-	this.registerDriver('enttec-open-usb-dmx',	require('./drivers/enttec-open-usb-dmx'));
-	this.registerDriver('artnet',				require('./drivers/artnet'));
-	this.registerDriver('bbdmx',				require('./drivers/bbdmx'));
-	this.registerDriver('rcswitch',				require('./drivers/RCSwitch'));
+	this.registerDriver('null',					requireFrom('lighting/drivers/null'));
+	this.registerDriver('dmx4all',				requireFrom('lighting/drivers/dmx4all'));
+	this.registerDriver('enttec-usb-dmx-pro',	requireFrom('lighting/drivers/enttec-usb-dmx-pro'));
+	this.registerDriver('enttec-open-usb-dmx',	requireFrom('lighting/drivers/enttec-open-usb-dmx'));
+	this.registerDriver('artnet',				requireFrom('lighting/drivers/artnet'));
+	this.registerDriver('bbdmx',				requireFrom('lighting/drivers/bbdmx'));
+	this.registerDriver('rcswitch',				requireFrom('lighting/drivers/RCSwitch'));
 }
 
 util.inherits(Controller, EventEmitter);
 
-Controller.devices   = require('./devices');
-Controller.Animation = require('./anim');
+Controller.devices   = requireFrom('lighting/devices');
+Controller.Animation = requireFrom('lighting/anim');
 
 Controller.prototype.registerDriver = function(name, module) {
 	this.drivers[name] = module;

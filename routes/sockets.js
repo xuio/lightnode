@@ -1,5 +1,7 @@
-const Controller	= require('../lighting/controller');
-const config		= require('../config');
+const requireFrom	= require('requirefrom')('/');
+
+const Controller	= requireFrom('lighting/controller');
+const config		= requireFrom('config');
 const controller	= Controller.getInstance();
 
 const handler = (socket) => {

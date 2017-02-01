@@ -1,6 +1,6 @@
 module.exports = {
 	server: {
-		listen_port: 8080,
+		listen_port: 3000,
 		listen_host: '::',
 
 		// drop privileges to:

@@ -1,11 +1,9 @@
 const express		= require('express');
+const requireFrom	= require('requirefrom');
 
-const Controller	= require('../lighting/controller');
-const config		= require('../config');
-const api			= require('./api');
+const api			= requireFrom('routes/api');
 
 const router		= express.Router();
-const controller	= Controller.getInstance();
 
 // login
 router.get('/login', (req, res) => {
@@ -14,7 +12,7 @@ router.get('/login', (req, res) => {
 		return;
 	}
 	res.render('login', {
-		title: 'lightnode | login',
+		title: 'lightnode',
 		loginFailed: req.session.loginFailed || false,
 	});
 });
@@ -26,7 +24,7 @@ router.post('/login', (req, res) => {
 		req.session.authentificated = true;
 		req.session.loginFailed     = false;
 
-		res.redirect('/controller');
+		res.redirect('/');
 	} else {
 		req.session.authentificated = false;
 		req.session.loginFailed     = true;
@@ -35,8 +33,11 @@ router.post('/login', (req, res) => {
 	}
 });
 
-// api stuff
-router.use('/api', api);
+// logout
+router.get('/logout', (req, res) => {
+	req.session.destroy();
+	res.redirect('/login');
+});
 
 // protect all following routes
 router.use((req, res, next) => {
@@ -48,12 +49,14 @@ router.use((req, res, next) => {
 	}
 });
 
-router.get('/contoller', (req, res) => {
-	// res.render('controller');
-	res.json({ asdf: 'asdf' });
+// api stuff
+router.use('/api', api);
+
+router.get('/', (req, res) => {
+	res.render('app');
 });
 
 module.exports = {
-	getRouter: router,
-	socketHandler: require('./sockets.js'),
+	Router: router,
+	socketHandler: requireFrom('routes/sockets.js'),
 };

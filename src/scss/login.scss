@@ -1,0 +1,195 @@
+//colors
+$color_0: rgba(51, 51, 51, 1);
+$color_1: rgba(255, 255, 255, 0.75);
+$color_2: rgba(245, 245, 245, 1);
+$color_3: rgba(255, 255, 255, 1);
+$color_4: rgba(230, 230, 230, 1);
+$color_5: rgba(0, 0, 0, 0.1);
+$color_6: rgba(0, 0, 0, 0.25);
+$color_7: rgba(255, 255, 255, 0.2);
+$color_8: rgba(0, 0, 0, 0.05);
+$color_9: rgba(74, 119, 212, 1);
+$color_10: rgba(110, 182, 222, 1);
+$color_11: rgba(55, 98, 188, 1);
+$color_12: rgba(0, 0, 0, 0.4);
+$color_13: rgba(0, 0, 0, 0.5);
+$color_14: rgba(9, 39, 86, 1);
+$color_15: rgba(62, 29, 109, 1);
+$color_16: rgba(0, 0, 0, 0.3);
+$color_17: rgba(100, 100, 100, 0.2);
+$color_18: rgba(100, 100, 100, 0.4);
+
+//fonts
+$font_0: 'Open Sans';
+$font_1: 'sans-serif';
+
+@import url('http://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.btn {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 4px 10px;
+  margin-bottom: 0;
+  font-size: 13px;
+  line-height: 18px;
+  color: $color_0;
+  text-align: center;
+  //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  text-shadow: 0 1px 1px $color_1;
+  vertical-align: middle;
+  background-color: $color_2;
+  background-image: linear-gradient(top, $color_3, $color_4);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startcolorstr=$color_3, endcolorstr=$color_4, gradienttype=0);
+  border-color: $color_5 $color_5 $color_6;
+  border: 1px solid $color_4;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 4px;
+  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  box-shadow: inset 0 1px 0 $color_7, 0 1px 2px $color_8;
+  cursor: pointer;
+  *margin-left: .3em;
+  &:hover {
+    background-color: $color_4;
+    color: $color_0;
+    text-decoration: none;
+    background-color: $color_4;
+    background-position: 0 -15px;
+    //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+    transition: background-position 0.1s linear;
+  }
+  &:active {
+    background-color: $color_4;
+  }
+  &.active {
+    background-color: $color_4;
+  }
+  &.disabled {
+    background-color: $color_4;
+  }
+}
+.btn[disabled] {
+  background-color: $color_4;
+}
+.btn-large {
+  padding: 9px 14px;
+  font-size: 15px;
+  line-height: normal;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 5px;
+}
+.btn-primary {
+  //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  text-shadow: 0 -1px 0 $color_6;
+  color: $color_3;
+  background-color: $color_9;
+  background-image: linear-gradient(top, $color_10, $color_9);
+  background-repeat: repeat-x;
+  filter: progid:dximagetransform.microsoft.gradient(startcolorstr=$color_10, endcolorstr=$color_9, gradienttype=0);
+  border: 1px solid $color_11;
+  //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  text-shadow: 1px 1px 1px $color_12;
+  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  box-shadow: inset 0 1px 0 $color_7, 0 1px 2px $color_13;
+  &:hover {
+    //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    text-shadow: 0 -1px 0 $color_6;
+    color: $color_3;
+    filter: none;
+    background-color: $color_9;
+  }
+  &.active {
+    color: $color_1;
+    filter: none;
+    background-color: $color_9;
+  }
+  &:active {
+    filter: none;
+    background-color: $color_9;
+  }
+  &.disabled {
+    filter: none;
+    background-color: $color_9;
+  }
+}
+.btn-primary[disabled] {
+  filter: none;
+  background-color: $color_9;
+}
+.btn-block {
+  width: 100%;
+  display: block;
+}
+* {
+  //Instead of the line below you could use @include box-sizing($bs)
+  box-sizing: border-box;
+}
+/*html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}*/
+.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -150px 0 0 -150px;
+  width: 300px;
+  height: 300px;
+  h1 {
+    color: $color_3;
+    //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    text-shadow: 0 0 10px $color_16;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+}
+input {
+  width: 100%;
+  margin-bottom: 10px;
+  background: $color_16;
+  outline: none;
+  padding: 10px;
+  font-size: 13px;
+  color: $color_3;
+  //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  text-shadow: 1px 1px 1px $color_16;
+  border: 1px solid $color_16;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 4px;
+  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  box-shadow: inset 0 -5px 45px $color_17, 0 1px 1px $color_7;
+  //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+  transition: box-shadow .5s ease;
+  &:focus {
+    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+    box-shadow: inset 0 -5px 45px $color_18, 0 1px 1px $color_7;
+  }
+}
+
+.alert-login {
+	margin-top: 20px;
+	background-color: rgba(255, 0, 0, 0.3);
+	border-color: rgba(255, 0, 0, 0.5);
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+	box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2), 0 1px 1px rgba(255, 255, 255, 0.2);
+	transition: box-shadow .5s ease;
+	color: rgba(255,250,250,0.6);
+}
+
+.login-head {
+  margin-bottom: 20px;
+}
