@@ -49,6 +49,7 @@
 		"rollup-plugin-commonjs": "^6.0.0",
 		"rollup-plugin-license": "^0.2.0",
 		"rollup-plugin-node-resolve-auto": "^1.0.1",
+		"rollup-plugin-relink": "^0.3.1",
 		"rollup-plugin-scss": "^0.2.0",
 		"rollup-plugin-serve": "^0.1.0",
 		"rollup-plugin-uglify": "^1.0.1",

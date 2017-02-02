@@ -41,11 +41,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morgan('dev'));
 
-// deploy bootstrap
-app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
-
 // deploy static stuff
-app.use('/dist', express.static(path.join(__dirname, './dist')));
+app.use('/', express.static(path.join(__dirname, './frontend/dist')));
 
 // configure session
 app.use(

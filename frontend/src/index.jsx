@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // import styles
-import '../node_modules/bootstrap/scss/bootstrap.scss';
-import './scss/login.scss';
+import '../../node_modules/bootstrap/scss/bootstrap.scss';
+import '../scss/login.scss';
 // Import the components.
 import { DummyComponent } from './components/dummy-component.jsx';
 

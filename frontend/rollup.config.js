@@ -36,7 +36,7 @@ const plugins = [
 		sourceMap: true,
 
 		banner: {
-			file: path.join(__dirname, './src/banner.b'),
+			file: path.join(__dirname, './static/banner.b'),
 		},
 	})
 ];
@@ -46,8 +46,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export default {
-	entry: path.join(__dirname, '../', '/src/index.jsx'),
-	dest: path.join(__dirname, '../', '/dist/app.js'),
+	entry: path.join(__dirname, './src/index.jsx'),
+	dest: path.join(__dirname, './dist/app.js'),
 	sourceMap: true,
 	format: 'iife',
 	// external: ['react'],
