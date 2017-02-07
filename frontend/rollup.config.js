@@ -34,7 +34,9 @@ const plugins = [
 			'node_modules/lodash.*/**',
 			//'node_modules/tether/**',
 			'node_modules/react-addons-*/**',
-			'node_modules/react-color/**'
+			'node_modules/react-color/**',
+			'node_modules/reactcss/**',
+			'node_modules/lodash/**',
 		],
 		namedExports: {
 			'node_modules/react/react.js': ['PropTypes', 'createElement', 'Component'],

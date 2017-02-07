@@ -1,11 +1,11 @@
 import React from 'react';
-import { ChromePicker } from 'react-color';
+import { ColorPickerButton } from './colorPickerButton.jsx';
 
 export class Channel extends React.Component {
 	render() {
 		return (
 			<div>
-				<ChromePicker />
+				<ColorPickerButton />
 			</div>
 		);
 	}
