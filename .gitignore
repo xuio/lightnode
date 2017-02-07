@@ -18,3 +18,5 @@ yarn.lock
 
 sessions
 sessions/*
+
+stats.html
