@@ -14,6 +14,9 @@ const session       = require('express-session');
 const morgan        = require('morgan');
 const argv          = require('optimist').argv;
 
+// session store
+const FileStore = require('session-file-store')(session);
+
 // load config file
 const config        = require(`./config/${argv.config || 'default'}`);
 const Controller    = require('./lighting/controller');
@@ -41,13 +44,16 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(morgan('dev'));
 
-// deploy static stuff
+// serve static stuff
 app.use('/', express.static(path.join(__dirname, './frontend/dist')));
+
+// serve fonts
+app.use('/fonts', express.static(path.join(__dirname, './node_modules/font-awesome/fonts')));
 
 // configure session
 app.use(
 	session({
-		secret: crypto.randomBytes(64).toString('hex'),
+		secret: '687r6tzfhuoi878t6zfgtzdgse56utzgui', // true randomness
 		resave: false,
 		saveUninitialized: false,
 		cookie: {
@@ -55,6 +61,9 @@ app.use(
 			httpOnly: true,
 			maxAge: (60 * 60 * 365),
 		},
+		store: new FileStore,
+		resave: true,
+		saveUninitialized: true
 	})
 );
 
