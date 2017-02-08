@@ -9,9 +9,13 @@ export class MainComponent extends React.Component {
 			<div>
 				<Navigation />
 				<Container>
-					<Button color="danger">
-						Test
-					</Button>
+					<Channel />
+					<Channel />
+					<Channel />
+					<Channel />
+					<Channel />
+					<Channel />
+					<Channel />
 					<Channel />
 				</Container>
 			</div>

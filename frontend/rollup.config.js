@@ -8,6 +8,7 @@ import path from 'path';
 import globals from 'rollup-plugin-node-globals';
 import replace from 'rollup-plugin-replace';
 import progress from 'rollup-plugin-progress';
+import browser from 'rollup-plugin-browser';
 import fs from 'fs';
 
 var Visualizer = require('rollup-plugin-visualizer');
@@ -37,6 +38,7 @@ const plugins = [
 			'node_modules/react-color/**',
 			'node_modules/reactcss/**',
 			'node_modules/lodash/**',
+			'node_modules/diffsync/**',
 		],
 		namedExports: {
 			'node_modules/react/react.js': ['PropTypes', 'createElement', 'Component'],
@@ -61,7 +63,7 @@ const plugins = [
 		},
 	}),
 	progress(),
-	Visualizer()
+	Visualizer(),
 ];
 
 if (process.env.NODE_ENV === 'production') {

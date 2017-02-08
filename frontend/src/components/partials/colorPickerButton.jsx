@@ -31,7 +31,10 @@ export class ColorPickerButton extends React.Component {
 	};
 
 	handleChange(color) {
+		// update state
 		this.setState({ color: color.rgb });
+		// notify parent
+		this.props.updateColor(color.rgb);
 		const avg = ((color.rgb.r + color.rgb.g + color.rgb.b) / 3);
 		if(avg < 180){
 			this.setState({text: 255});
@@ -55,21 +58,21 @@ export class ColorPickerButton extends React.Component {
 					left: '0px',
 				},
 				button: {
-					transition: 'background-color 0s',
-					transition: 'border-color 0s',
-					'background-color': `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
-					'border-color': `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
+					transition: 'all 0.2s ease-in-out, border-color 1ms, background-color 1ms',
+					backgroundColor: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
+					borderColor: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
+					borderRadius: '0px',
 				},
 				buttonText: {
 					color: `rgb(${ this.state.text }, ${ this.state.text }, ${ this.state.text })`,
-					transition: 'all 0.2s ease in out',
-				}
+				},
 			},
 		});
+
 		return (
 			<div>
-				<Button style={ styles.button } onClick={ this.handleClick }>
-					<span style={ styles.buttonText }>Color</span>
+				<Button className={ `colorPickerButton${this.state.displayColorPicker ? ' buttonActive':''}` } style={ styles.button } onClick={ this.handleClick }>
+					<span style={ styles.buttonText }><i className="fa fa-tint"></i></span>
 				</Button>
 					{ this.state.displayColorPicker ? <div style={ styles.popover }>
 					<div style={ styles.cover } onClick={ this.handleClose }/>
@@ -79,3 +82,5 @@ export class ColorPickerButton extends React.Component {
 		)
 	}
 }
+
+//ColorPickerButton = Radium(ColorPickerButton);
