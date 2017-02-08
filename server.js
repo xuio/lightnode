@@ -15,7 +15,7 @@ const morgan        = require('morgan');
 const argv          = require('optimist').argv;
 
 // session store
-const FileStore = require('session-file-store')(session);
+const NedbStore     = require('express-nedb-session')(session);
 
 // load config file
 const config        = require(`./config/${argv.config || 'default'}`);
@@ -61,9 +61,7 @@ app.use(
 			httpOnly: true,
 			maxAge: (60 * 60 * 365),
 		},
-		store: new FileStore,
-		resave: true,
-		saveUninitialized: true
+		store: new NedbStore({ filename: path.join(__dirname, 'sessions') })
 	})
 );
 
