@@ -1,30 +1,35 @@
 #!/usr/bin/env node
 'use strict';
 
-const http          = require('http');
-const crypto        = require('crypto');
-const path          = require('path');
+const http           = require('http');
+const crypto         = require('crypto');
+const path           = require('path');
 
-const express       = require('express');
-const exphbs        = require('express-handlebars');
-const socketio      = require('socket.io');
-const cookieParser  = require('cookie-parser');
-const bodyParser    = require('body-parser');
-const session       = require('express-session');
-const morgan        = require('morgan');
-const argv          = require('optimist').argv;
+const express        = require('express');
+const exphbs         = require('express-handlebars');
+const socketio       = require('socket.io');
+const cookieParser   = require('cookie-parser');
+const bodyParser     = require('body-parser');
+const session        = require('express-session');
+const morgan         = require('morgan');
+const argv           = require('optimist').argv;
+const diffSync       = require('diffsync');
 
 // session store
-const NedbStore     = require('express-nedb-session')(session);
+const NedbStore      = require('express-nedb-session')(session);
 
 // load config file
-const config        = require(`./config/${argv.config || 'default'}`);
-const Controller    = require('./lighting/controller');
-const router        = require('./routes/router');
+const config         = require(`./config/${argv.config || 'default'}`);
+const Controller     = require('./lighting/controller');
+const router         = require('./routes/router');
 
-const app           = express();
-const server        = http.createServer(app);
-const io            = socketio.listen(server);
+const app            = express();
+const server         = http.createServer(app);
+const io             = socketio.listen(server);
+
+// initialize diffsync
+const dataAdapter    = new diffSync.InMemoryDataAdapter();
+const diffSyncServer = new diffSync.Server(dataAdapter, io);
 
 // instantiate controller singleton
 const controller = Controller.getInstance();
@@ -91,6 +96,6 @@ server.listen(listen_port, listen_host, null, () => {
 	console.log(`LightNode listening on [${listen_host}]:${listen_port}`);
 });
 
-io.set('log level', 1);
+//io.set('log level', 1);
 
-io.sockets.on('connection', router.socketHandler);
+//io.sockets.on('connection', router.socketHandler);

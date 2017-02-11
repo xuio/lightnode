@@ -10,6 +10,7 @@ import replace from 'rollup-plugin-replace';
 import progress from 'rollup-plugin-progress';
 import browser from 'rollup-plugin-browser';
 import fs from 'fs';
+import dlFile from 'download-file-sync';
 
 var Visualizer = require('rollup-plugin-visualizer');
 
@@ -38,14 +39,38 @@ const plugins = [
 			'node_modules/react-color/**',
 			'node_modules/reactcss/**',
 			'node_modules/lodash/**',
-			'node_modules/diffsync/**',
+			//'node_modules/diffsync/**',
+			'node_modules/events/**',
+			'node_modules/socket.io-client/**',
+			'node_modules/parseuri/**',
+			'node_modules/socket.io-parser/**',
+			'node_modules/ms/**',
+			'node_modules/json3/**',
+			'node_modules/isarray/**',
+			'node_modules/engine.io-parser/**',
+			'node_modules/engine.io-client/**',
+			'node_modules/has-*/**',
+			'node_modules/arraybuffer.slice/**',
+			'node_modules/after/**',
+			'node_modules/base64-array*/**',
+			'node_modules/blob/**',
+			'node_modules/to-array/**',
+			'node_modules/component-bind/**',
+			'node_modules/wtf-8/**',
+			'node_modules/component-emitter/**',
+			'node_modules/indexof/**',
+			'node_modules/backo2/**',
+			'node_modules/parseqs/**',
+			'node_modules/component-inherit/**',
+			'node_modules/yeast/**',
+			'node_modules/parsejson/**',
 		],
 		namedExports: {
 			'node_modules/react/react.js': ['PropTypes', 'createElement', 'Component'],
 			//'node_modules/tether/dist/js/tether.min.js': ['Tether'],
 			//'node_modules/tether/dist/js/tether.min.js': ['Tether'],
 			//'node_modules/reactstrap/dist/reactstrap.min.js': ['Button'],
-	    }
+	    },
 	}),
 	globals(),
 	replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
@@ -54,6 +79,7 @@ const plugins = [
 		browser: true,
 		main: true,
 		skip: ['tether'],
+		preferBuiltins: false,
 	}),
 	license({
 		sourceMap: true,
@@ -75,14 +101,23 @@ export default {
 	dest: path.join(__dirname, './dist/app.js'),
 	sourceMap: true,
 	format: 'iife',
-	external: ['Tether'],
+	external: ['Tether', 'diffsync', 'eio',/*'engine.io',*/ 'engine.io-client'],
 	plugins,
 	globals: {
 		tether: 'Tether',
+		'engine.io-client': 'eio',
+		//engine_ioClient: 'engine.io-client'
 	},
 	// hacky tether fix
 	banner: `
 // Fixing Tether:
 ${fs.readFileSync('node_modules/tether/dist/js/tether.min.js')}
+
+// engine.io-client:
+${fs.readFileSync('node_modules/engine.io-client/engine.io.js')}
+
+// diffsync
+${dlFile('https://wzrd.in/standalone/diffsync')}
 `,
 };
+// ${fs.readFileSync('node_modules/engine.io-client/engine.io.js')}
