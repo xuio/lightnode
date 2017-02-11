@@ -17,17 +17,7 @@ import { MainComponent } from './components/main.jsx';
 
 // DiffSync wrapper
 const WithDiffSync = (ComposedComponent, {client, onError}) => class extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			color: {
-				r: 0,
-				g: 0,
-				b: 0,
-				a: 1,
-			}
-		};
-	}
+	diffSyncState = {};
 
 	componentDidMount() {
 		client.on('connected', () => {
@@ -45,7 +35,7 @@ const WithDiffSync = (ComposedComponent, {client, onError}) => class extends Rea
 	}
 
 	setDiffSyncState(fn) {
-		fn(this.state.color);
+		fn(this.diffSyncState);
 
 		client.schedule();
 	}
